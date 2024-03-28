@@ -1,0 +1,486 @@
+{
+	"info": {
+		"_postman_id": "f65a12e8-4cd1-477a-99c7-5badd4e11367",
+		"name": "LE 1.0 Performance",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16339972"
+	},
+	"item": [
+		{
+			"name": "User Login_Performance",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Script for Asserting Status Code",
+							"pm.test('Login Status code is 200', () => {",
+							"    pm.response.to.have.status(200);",
+							"})",
+							"",
+							"",
+							"//Script for Asserting Status Code",
+							"pm.test('Successful POST request', () => {",
+							"    pm.expect(pm.response.code).to.be.oneOf([",
+							"        200,",
+							"        201,",
+							"        202",
+							"    ]);",
+							"})",
+							"",
+							"/* Use this for Signup",
+							"//Script for Asserting Status Code",
+							"pm.test(\"Status code name has string\", () => {",
+							" pm.response.to.have.status(\"Created\");",
+							"});",
+							"*/",
+							"",
+							"//Script for Asserting Headers",
+							"pm.test('Content-Type header is present', () => {",
+							"    pm.response.to.have.header('Content-Type');",
+							"})",
+							"",
+							"",
+							"//Script for Asserting multiple Headers",
+							"pm.test(\"Multiple header is present\", () => {",
+							"    pm.expect(pm.response.headers.has(\"Date\") || pm.response.headers.has(\"Content-Type\") || pm.response.headers.has(\"Server\")).to.be.true;",
+							"});",
+							"",
+							"",
+							"//Script for Asserting Headers wih value",
+							"pm.test('Content-Type header is application/json', () => {",
+							"    pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json; charset=UTF-8');",
+							"})",
+							"",
+							"",
+							"//Script for Asserting cookies",
+							"pm.test('Cookie language is present', () => {",
+							"    pm.expect(pm.cookies.has('__cf_bm')).to.be.true;",
+							"})",
+							"",
+							"",
+							"//Script for Asserting Response Time",
+							"pm.test('Response time is less than 2500ms', () => {",
+							"    pm.expect(pm.response.responseTime).to.be.below(2500);",
+							"})",
+							"",
+							"",
+							"const JSONDATA = JSON.parse(responseBody);",
+							"pm.environment.set(\"access_token\",JSONDATA.data.access_token);",
+							"pm.environment.set(\"user_unique_id\",JSONDATA.data.userdata.unique_id);",
+							"",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Basic YWRtaW46MTIzNA=="
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded"
+					},
+					{
+						"description": "Unique Id provided for that organization",
+						"key": "organization_id",
+						"value": "6jhdjdh8884gud992008871"
+					},
+					{
+						"description": "Access token of that organization",
+						"key": "organization_access_token",
+						"value": "BDBF717DEE8AF923A69E2540A6B0FC9C"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "password",
+							"value": "{{PasswordfromCSV}}",
+							"description": "Password of the user",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "{{EmailIDfromCSV}}",
+							"type": "text"
+						},
+						{
+							"key": "user_timezone",
+							"value": "+05:30",
+							"description": "TImezone information",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "current_date_time",
+							"value": "2017-10-30 03:41:00",
+							"description": "Current date of the user in yyyy-MM-dd hh:mm:ss format",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "ip_address",
+							"value": "103.246.45.98",
+							"description": "IP address of the user device",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "device_token",
+							"value": "APA91bHmOrWYiFjfm8I8Q",
+							"description": "Device token of the device",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "endorsement_delivery",
+							"value": "0",
+							"description": "1 if the user need an endorsement to their address\nO if the user doesn't need an endorsement to their address",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "amendment_acceptance",
+							"value": "1",
+							"description": "Amendment acceptance must be 1 as the user need to accept the terms",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "OS",
+							"value": "Android",
+							"description": "OS of the device",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "date_of_birth",
+							"value": "1995-06-01",
+							"description": "Date of birth of the user",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "ssn",
+							"value": "5427",
+							"description": "SSN of the user",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "browser",
+							"value": "Chrome",
+							"description": "Browser of the session",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "access_code",
+							"value": "12345",
+							"description": "Unique Access code provided for the user",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "source",
+							"value": "mobile",
+							"description": "Source of the session (mobile/web)",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "device_model",
+							"value": "Samsung S6 Edge",
+							"description": "Model of the device logged in",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "device_id",
+							"value": "4caffierh85cgsyjgchis",
+							"description": "Id of the device logged in",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "signup_flag",
+							"value": "15002",
+							"description": "Flag for tracking the progress of SignUP",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "{{url}}/api/v3/carriers/1/authorization",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v3",
+						"carriers",
+						"1",
+						"authorization"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Left Menu_Performance",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Script for Asserting Status Code",
+							"pm.test('Left Menu Status code is 200', () => {",
+							"    pm.response.to.have.status(200);",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "access-token",
+						"value": "{{access_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/api/v3/carriers/1/menu/config",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v3",
+						"carriers",
+						"1",
+						"menu",
+						"config"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Dashboard_Performance",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Script for Asserting Status Code",
+							"pm.test('Dashboard Status code is 200', () => {",
+							"    pm.response.to.have.status(200);",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "access-token",
+						"value": "{{access_token}}",
+						"type": "text"
+					},
+					{
+						"key": "user_time_zone",
+						"value": "+05:30",
+						"type": "text"
+					},
+					{
+						"key": "os",
+						"value": "Android",
+						"type": "text"
+					},
+					{
+						"key": "app_version",
+						"value": "2.1.1",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/v5/carriers/1/dashboard",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v5",
+						"carriers",
+						"1",
+						"dashboard"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "My Account_Performance",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Script for Asserting Status Code",
+							"pm.test('My Account Status code is 200', () => {",
+							"    pm.response.to.have.status(200);",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "1234",
+							"type": "string"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "access-token",
+						"value": "{{access_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/api/v5/carriers/1/users/account",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v5",
+						"carriers",
+						"1",
+						"users",
+						"account"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "My Planning_Performance",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//Script for Asserting Status Code",
+							"pm.test('My Planning Status code is 200', () => {",
+							"    pm.response.to.have.status(200);",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "access-token",
+						"value": "{{access_token}}"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/api/v3/carriers/1/users/{{user_unique_id}}/lifekit/info",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"v3",
+						"carriers",
+						"1",
+						"users",
+						"{{user_unique_id}}",
+						"lifekit",
+						"info"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
